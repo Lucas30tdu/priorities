@@ -4,63 +4,52 @@
 <title>Priorities</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Patrick+Hand&display=swap">
 <style>
-:root{--bg:#faf7f2;--fg:#1f1b16;--mut:#7a7168;--card:#fff;--bd:#e6dfd4;--ac:#d9480f;--acf:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17140f;--fg:#f3ece1;--mut:#a39a8d;--card:#221e17;--bd:#383126;--ac:#ff8a4c;--acf:#1a1208}}
-:root[data-theme="dark"]{--bg:#17140f;--fg:#f3ece1;--mut:#a39a8d;--card:#221e17;--bd:#383126;--ac:#ff8a4c;--acf:#1a1208}
+:root{--bg:#fff;--fg:#111;--mut:#555;--card:#fff;--bd:#111;--ac:#3a8fdc;--acf:#fff;--pk:#e27bbd;--gr:#4db08f;--sh:#111;--yl:#f5d061}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15151b;--fg:#f6f6f6;--mut:#b5b5c0;--card:#22222b;--bd:#f6f6f6;--ac:#4aa0ee;--acf:#0d0d12;--pk:#d065aa;--gr:#3b9c7b;--yl:#dfb439;--sh:#000}}
+:root[data-theme="dark"]{--bg:#15151b;--fg:#f6f6f6;--mut:#b5b5c0;--card:#22222b;--bd:#f6f6f6;--ac:#4aa0ee;--acf:#0d0d12;--pk:#d065aa;--gr:#3b9c7b;--yl:#dfb439;--sh:#000}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 Georgia,'Times New Roman',serif}
-main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
-h1{font-size:30px;margin:0 0 4px;letter-spacing:-.5px}h2{font-size:20px;margin:22px 0 8px}
-p.s{color:var(--mut);margin:0 0 16px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin:10px 0}
-input,textarea{width:100%;box-sizing:border-box;padding:11px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--fg);font:inherit;margin:4px 0 10px}
-button{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:10px;padding:10px 14px}
-button.p{background:var(--ac);color:var(--acf);border-color:var(--ac);font-weight:bold;width:100%;margin-top:6px}
-button:disabled{opacity:.45}
-.row{display:flex;gap:8px}.row>*{flex:1}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{position:relative;padding:10px 14px}
-.chip.on{background:var(--ac);color:var(--acf);border-color:var(--ac);font-weight:bold}
-.chip b{margin-right:6px}
-.tag{display:inline-block;padding:2px 9px;border:1px solid var(--bd);border-radius:99px;font-size:13px;margin:2px 4px 2px 0;color:var(--mut)}
-.code{font:bold 22px ui-monospace,monospace;letter-spacing:4px;color:var(--ac)}
-.cols{display:flex;gap:8px;overflow-x:auto}.col{flex:1;min-width:120px}
-.col ol{padding-left:20px;margin:6px 0}
-.err{color:var(--ac);min-height:20px}
-/* DA inspirée du jeu officiel : fond blanc, gros contours noirs, ombres dures, bleu / rose / vert */
-:root{--bg:#fff;--fg:#111;--mut:#555;--card:#fff;--bd:#111;--ac:#3a8fdc;--acf:#fff;--pk:#e27bbd;--gr:#4db08f;--sh:#111}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15151b;--fg:#f6f6f6;--mut:#b5b5c0;--card:#22222b;--bd:#f6f6f6;--ac:#4aa0ee;--acf:#0d0d12;--sh:#000}}
-:root[data-theme="dark"]{--bg:#15151b;--fg:#f6f6f6;--mut:#b5b5c0;--card:#22222b;--bd:#f6f6f6;--ac:#4aa0ee;--acf:#0d0d12;--sh:#000}
-body{font:19px/1.4 'Patrick Hand','Comic Sans MS',cursive,sans-serif}
+body{margin:0;background:var(--bg);color:var(--fg);font:19px/1.4 'Patrick Hand','Comic Sans MS',cursive,sans-serif}
+main{max-width:640px;margin:0 auto;padding:24px 16px 56px}
 h1,h2,.code,button.p,.chip b{font-family:'Lilita One','Arial Black',Impact,sans-serif;font-weight:400}
-h1{font-size:48px;line-height:1;color:var(--ac);-webkit-text-stroke:2px var(--bd);paint-order:stroke fill;text-shadow:3px 3px 0 var(--sh);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-h1::after{content:' ✳';color:var(--fg);-webkit-text-stroke:0;text-shadow:none;font-size:26px;vertical-align:top}
-h2{font-size:22px;text-transform:uppercase;letter-spacing:.5px}
-.card{border:2.5px solid var(--bd);border-radius:14px;box-shadow:4px 4px 0 var(--sh)}
-input,textarea{border:2.5px solid var(--bd);border-radius:12px;font-family:inherit;font-size:19px}
-button{border:2.5px solid var(--bd);border-radius:12px;box-shadow:3px 3px 0 var(--sh);font-family:inherit;font-size:19px}
+h1{font-size:52px;line-height:1;color:var(--ac);-webkit-text-stroke:2.5px var(--bd);paint-order:stroke fill;text-shadow:3.5px 3.5px 0 var(--sh);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;text-align:center}
+h1::after{content:' ✳';color:var(--pk);-webkit-text-stroke:0;text-shadow:none;font-size:28px;vertical-align:top}
+h2{font-size:24px;text-transform:uppercase;letter-spacing:.5px;margin:24px 0 10px}
+p.s{color:var(--mut);margin:0 0 18px;text-align:center;font-size:20px}
+.card{background:var(--card);border:3px solid var(--bd);border-radius:16px;box-shadow:4px 4px 0 var(--sh);padding:18px;margin:14px 0}
+input,textarea{width:100%;box-sizing:border-box;padding:12px 14px;border:3px solid var(--bd);border-radius:12px;background:var(--card);color:var(--fg);font:inherit;font-size:20px;margin:6px 0 12px;box-shadow:2px 2px 0 var(--sh)}
+input:focus,textarea:focus{outline:none;background:rgba(58,143,220,0.05)}
+button{font:inherit;cursor:pointer;border:3px solid var(--bd);background:var(--card);color:var(--fg);border-radius:12px;padding:12px 18px;font-size:20px;box-shadow:3px 3px 0 var(--sh);transition:transform .1s,box-shadow .1s}
+button:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--sh)}
 button:active:not(:disabled){transform:translate(2px,2px);box-shadow:1px 1px 0 var(--sh)}
-button.p{font-size:22px;letter-spacing:.5px;text-transform:uppercase;padding:12px 14px;margin-top:10px}
-.chip.on{background:var(--pk);color:#111}
-.chip b{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#111;color:#fff;font-size:15px;margin-right:8px}
-.tag{border:2px solid var(--bd);color:var(--fg);background:var(--card);font-size:17px}
-.code{-webkit-text-stroke:1px var(--bd);paint-order:stroke fill;text-shadow:2px 2px 0 var(--sh)}
-.rk{display:flex;align-items:center;gap:10px;margin:12px 0}.rk b{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--pk);color:#111;border:2px solid var(--bd);font-family:'Lilita One',sans-serif;font-weight:400}.rk span{flex:1;font-size:22px}.rk button{flex:none;padding:8px 12px}
-.ic{flex:none;display:inline-grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--gr);border:2.5px solid var(--bd);color:#111;transform:rotate(-4deg)}
-.ic svg{width:26px;height:26px;stroke-width:2.4;filter:url(#wob)}
+button.p{background:var(--ac);color:var(--acf);font-size:24px;letter-spacing:.5px;text-transform:uppercase;padding:14px;margin-top:10px;width:100%}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:2px 2px 0 var(--sh)!important}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:2.5px solid var(--bd);border-radius:99px;font-size:18px;margin:3px;color:var(--fg);background:var(--card);box-shadow:2px 2px 0 var(--sh)}
+.tag.done{background:var(--gr);color:#111}
+.code{font:bold 26px ui-monospace,monospace;letter-spacing:4px;color:var(--ac);background:rgba(58,143,220,0.1);padding:2px 8px;border-radius:8px;border:2px solid var(--bd)}
+.cols{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}.col{flex:1;min-width:140px}
+.col ol{padding-left:22px;margin:8px 0}
+.err{color:var(--ac);min-height:24px;text-align:center;font-weight:bold;margin-top:10px}
+.rk{display:flex;align-items:center;gap:12px;margin:12px 0;padding:12px 14px}
+.rk b{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--pk);color:#111;border:2.5px solid var(--bd);font-family:'Lilita One',sans-serif;font-size:20px;box-shadow:2px 2px 0 var(--sh);flex:none}
+.rk span{flex:1;font-size:22px;line-height:1.2}
+.rk .btns{display:flex;gap:6px;flex:none}
+.rk button{padding:8px 14px;font-size:18px;box-shadow:2px 2px 0 var(--sh)}
+.ic{flex:none;display:inline-grid;place-items:center;width:48px;height:48px;border-radius:12px;background:var(--gr);border:2.5px solid var(--bd);color:#111;transform:rotate(-4deg);box-shadow:2px 2px 0 var(--sh)}
+.ic svg{width:28px;height:28px;stroke-width:2.4}
 .rk:nth-of-type(even) .ic{background:var(--pk);transform:rotate(3deg)}
-li .ic{width:26px;height:26px;border-radius:8px;border-width:2px;vertical-align:middle;margin-right:6px}
+.rk:nth-of-type(3n) .ic{background:var(--yl);transform:rotate(-2deg)}
+li .ic{width:28px;height:28px;border-radius:8px;border-width:2px;vertical-align:middle;margin-right:8px}
 li .ic svg{width:16px;height:16px}
-.card>b+.ic,.card>b{vertical-align:middle}
-.doo{display:flex;gap:12px;margin:2px 0 14px}
-.doo svg{width:36px;height:36px;stroke-width:2.2;filter:url(#wob);color:var(--ac)}
+.doo{display:flex;justify-content:center;gap:14px;margin:8px 0 20px}
+.doo svg{width:40px;height:40px;stroke-width:2.2;color:var(--ac)}
 .doo svg:nth-child(odd){transform:rotate(-6deg)}.doo svg:nth-child(even){transform:rotate(5deg)}
 .doo svg:nth-child(3n+2){color:var(--pk)}.doo svg:nth-child(3n){color:var(--gr)}
 .col:nth-child(3n+1) b{color:var(--ac)}.col:nth-child(3n+2) b{color:var(--pk)}.col:nth-child(3n) b{color:var(--gr)}
-.mini{padding:6px 12px;font-size:16px}
-.rk.big{padding:14px}.rk.big span{font-size:26px}.rk.big b{width:42px;height:42px;font-size:22px}
-label{display:block;margin-top:4px}
-</style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="wob" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.5"/></filter></svg>
+label{display:block;margin-top:6px;font-weight:bold;font-size:18px}
+.mystery-box{border-color:var(--pk);background:rgba(226,123,189,0.12)}
+.info-box{border-color:var(--ac);background:rgba(58,143,220,0.08)}
+</style></main><body>
 <main id="app"></main>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
@@ -84,9 +73,7 @@ function deal(forcedWord){
   if(av.length<N){av=[...pool];used=[]}
   let count = N - (forcedWord ? 1 : 0);
   let c = av.sort(()=>Math.random()-.5).slice(0, count);
-  if(forcedWord){
-    c.push(forcedWord);
-  }
+  if(forcedWord){c.push(forcedWord);}
   c.sort(()=>Math.random()-.5);
   used.push(...c);
   return c;
@@ -127,7 +114,7 @@ function startRound(){
  const pIds=Object.keys(S.players).sort();
  const chosenId=pIds[(S.round - 1) % pIds.length];
  S.chosenBy=chosenId;
- const mw=S.mysteryWords[chosenId]||'Concept mystère par défaut';
+ const mw=S.mysteryWords[chosenId]||'Un secret bien gardé';
  S.cards=deal(mw.trim());
  S.phase='rank';
  Object.values(S.players).forEach(p=>{p.ranking=[];p.done=false;p.round=S.round});
@@ -159,19 +146,24 @@ function reveal(){S.phase='reveal';broadcast()}
 function render(){
  const a=$('app');let h=`<h1>Priorities</h1>${DOO()}`;
  if(!S){
-  h+=busy?`<p class="s">Connexion…</p>`:`<p class="s">Classe 5 concepts, puis débattez de vos choix.</p>
-  <div class="card"><label>Ton pseudo</label><input id="nm" value="${esc(name)}" maxlength="20">
-  <label>Code de la salle (pour rejoindre)</label><input id="cd" maxlength="4" placeholder="ABCD" style="text-transform:uppercase">
-  <div class="row"><button class="p" onclick="join()">Rejoindre</button><button class="p" onclick="create()">Créer une salle</button></div></div>
-  <p class="s">L’hôte doit garder la page ouverte pendant la partie.</p>`;
+  h+=busy?`<p class="s">Connexion en cours…</p>`:`<p class="s">Classe 5 concepts, puis débattez de vos choix.</p>
+  <div class="card">
+   <label>Ton pseudo</label><input id="nm" value="${esc(name)}" maxlength="20" placeholder="Ex: Jean-Michel">
+   <label>Code de la salle</label><input id="cd" maxlength="4" placeholder="ABCD" style="text-transform:uppercase">
+   <div class="row">
+    <button onclick="join()">Rejoindre</button>
+    <button class="p" onclick="create()">Créer une salle</button>
+   </div>
+  </div>
+  <p class="s">L’hôte doit garder la page ouverte pendant toute la partie.</p>`;
   h+=`<div class="err">${esc(msg)}</div>`;a.innerHTML=h;ic();return}
  
  const ps=Object.entries(S.players).map(([id,p])=>({id,...p}));
- h+=`<p class="s">Salle <span class="code">${esc(code)}</span> · manche ${S.round}</p>`;
+ h+=`<p class="s">Salon <span class="code">${esc(code)}</span> · Manche ${S.round}</p>`;
  
  if(S.phase==='lobby'){
-  h+=`<div class="card"><b>Joueurs (${ps.length})</b><div>${ps.map(p=>`<span class="tag">${esc(p.name||'?')}</span>`).join('')}</div></div>`;
-  h+=isHost?`<h2>Prêt ?</h2><p class="s">À chaque tour, un joueur au hasard choisira un concept secret obligatoire ! Tu peux aussi ajouter des concepts de base ci-dessous (un par ligne, facultatif).</p><textarea id="dr" rows="3" oninput="draft=this.value" placeholder="Ex. : Un vieux dossier honteux">${esc(draft)}</textarea><button class="p" onclick="start()">Lancer la partie</button>`:`<p class="s">En attente que l’hôte lance la partie…</p>`;
+  h+=`<div class="card info-box"><b>👥 Joueurs connectés (${ps.length})</b><div style="margin-top:8px">${ps.map(p=>`<span class="tag">👤 ${esc(p.name||'Anonyme')}</span>`).join('')}</div></div>`;
+  h+=isHost?`<div class="card"><h2>Paramètres de la partie</h2><p class="s" style="text-align:left;margin-bottom:10px">À chaque manche, un joueur au hasard choisira un concept secret obligatoire ! Tu peux aussi ajouter tes propres concepts de base ci-dessous (un par ligne, facultatif).</p><textarea id="dr" rows="3" oninput="draft=this.value" placeholder="Ex. : Un dossier honteux">${esc(draft)}</textarea><button class="p" onclick="start()">Lancer la partie 🚀</button></div>`:`<div class="card" style="text-align:center"><p class="s" style="margin:0">En attente que l'hôte lance la partie...</p></div>`;
  }else{
   if(!pick||pickRound!==S.round){pick=[...S.cards];pickRound=S.round}
   const me=S.players[myId]||{done:false};
@@ -183,36 +175,38 @@ function render(){
   if(S.phase==='rank'){
    h+=`<h2>Manche ${S.round}</h2>`;
    if(isChosenOne){
-    h+=`<div class="card" style="border-color:var(--pk); background:rgba(226,123,189,0.08)"><b>🎲 C'est ton tour !</b><p class="s" style="margin:4px 0 8px">Tu es désigné pour choisir <b>le mot mystère</b> de cette manche qui sera obligatoirement dans les 5 concepts.</p><input id="mw-input" value="${esc(mysteryWord)}" oninput="mysteryWord=this.value" placeholder="Ex: Manger du fromage la nuit" maxlength="40"><button class="p" onclick="submitMystery()" ${myMysteryWord?'style="background:var(--gr)"':''}>${myMysteryWord?'Mot validé ! (Modifier)':'Valider mon mot mystère'}</button></div>`;
+    h+=`<div class="card mystery-box"><b>🎲 C'est ton tour !</b><p class="s" style="text-align:left;margin:4px 0 10px">Tu es désigné pour choisir <b>le mot mystère</b> de cette manche qui sera obligatoirement inclus dans les 5 concepts.</p><input id="mw-input" value="${esc(mysteryWord)}" oninput="mysteryWord=this.value" placeholder="Ex: Manger du fromage la nuit" maxlength="40"><button class="p" onclick="submitMystery()" ${myMysteryWord?'style="background:var(--gr)"':''}>${myMysteryWord?'✓ Mot validé ! (Modifier)':'Valider mon mot mystère'}</button></div>`;
    }else{
-    h+=`<div class="card"><b>🎲 Tour du destin</b><p class="s" style="margin:0">C'est <b>${esc(chosenName)}</b> qui choisit le mot mystère secret de cette manche...</p></div>`;
+    h+=`<div class="card info-box"><b>🎲 Tour du destin</b><p class="s" style="text-align:left;margin:0">C'est <b>${esc(chosenName)}</b> qui choisit le mot mystère secret de cette manche en ce moment...</p></div>`;
    }
 
-   h+=`<h2>Du préféré au moins préféré</h2><p class="s">Classe ces 5 concepts avec les flèches : le 1er est celui que tu préfères.</p>${pick.map((c,i)=>`<div class="card rk"><b>${i+1}</b>${ico(c)}<span>${esc(c)}</span><button ${me.done||i===0?'disabled':''} onclick="mv(${i},-1)">▲</button><button ${me.done||i===pick.length-1?'disabled':''} onclick="mv(${i},1)">▼</button></div>`).join('')}`;
-   h+=me.done?`<button class="p" onclick="validate(false)">Modifier mon classement</button>`:`<button class="p" onclick="validate(true)">Valider mon classement</button>`;
+   h+=`<h2>Du préféré au moins préféré</h2><p class="s" style="text-align:left;margin-bottom:8px">Classe ces 5 concepts avec les flèches : le 1er est ton préféré.</p>${pick.map((c,i)=>`<div class="card rk"><b>${i+1}</b>${ico(c)}<span>${esc(c)}</span><div class="btns"><button ${me.done||i===0?'disabled':''} onclick="mv(${i},-1)">▲</button><button ${me.done||i===pick.length-1?'disabled':''} onclick="mv(${i},1)">▼</button></div></div>`).join('')}`;
+   
+   h+=me.done?`<button class="p" style="background:var(--gr);color:#111" onclick="validate(false)">✓ Classement validé (Modifier)</button>`:`<button class="p" onclick="validate(true)">Valider mon classement</button>`;
+   
    const d=ps.filter(p=>p.done&&p.round===S.round).length;
-   h+=`<div class="card">${d} / ${ps.length} ont validé<div>${ps.map(p=>`<span class="tag">${p.done&&p.round===S.round?'✓ ':'… '}${esc(p.name||'?')}</span>`).join('')}</div></div>`;
-   if(isHost)h+=`<button class="p" onclick="reveal()">Révéler les classements</button>`;
+   h+=`<div class="card"><b>Statut des joueurs (${d}/${ps.length} validés)</b><div style="margin-top:8px">${ps.map(p=>`<span class="tag ${p.done&&p.round===S.round?'done':''}">${p.done&&p.round===S.round?'✓':'⏳'} ${esc(p.name||'?')}</span>`).join('')}</div></div>`;
+   
+   if(isHost)h+=`<button class="p" style="background:var(--pk);color:#111;margin-top:20px" onclick="reveal()">Révéler les classements 👀</button>`;
   }else{
    const R=ps.filter(p=>p.round===S.round&&p.ranking.length===N);
-   h+=`<h2>Les classements</h2>`;
-   h+=`<p class="s">Le mot mystère de cette manche a été choisi par <b>${esc(chosenName)}</b>.</p>`;
+   h+=`<h2>Résultats de la manche</h2>`;
+   h+=`<p class="s" style="text-align:left">Le mot mystère de cette manche a été choisi par <b>${esc(chosenName)}</b>.</p>`;
    if(!R.length)h+=`<p class="s">Personne n’a validé de classement.</p>`;
-   h+=`<div class="cols">${R.map(p=>`<div class="card col"><b>${esc(p.name||'?')}</b><ol>${p.ranking.map(c=>`<li>${ico(c)}${esc(c)}</li>`).join('')}</ol></div>`).join('')}</div>`;
+   h+=`<div class="cols">${R.map(p=>`<div class="card col"><b>👤 ${esc(p.name||'?')}</b><ol>${p.ranking.map(c=>`<li>${ico(c)}${esc(c)}</li>`).join('')}</ol></div>`).join('')}</div>`;
    if(R.length>1){
     const cs=S.cards.map(c=>{const r=R.map(p=>p.ranking.indexOf(c)+1);return{c,r,s:Math.max(...r)-Math.min(...r)}});
     const pills=x=>R.map((p,i)=>`<span class="tag">${esc(p.name||'?')} : ${x.r[i]}</span>`).join('');
     const dis=[...cs].sort((a,b)=>b.s-a.s).slice(0,3),con=cs.filter(x=>x.s<=1).sort((a,b)=>a.s-b.s).slice(0,2);
-    h+=`<h2>À débattre</h2>`+dis.map(x=>`<div class="card"><b>${ico(x.c)}${esc(x.c)}</b><div>${pills(x)}</div></div>`).join('');
-    if(con.length)h+=`<h2>D’accord sur</h2>`+con.map(x=>`<div class="card"><b>${ico(x.c)}${esc(x.c)}</b><div>${pills(x)}</div></div>`).join('');
+    h+=`<h2>🔥 À débattre</h2>`+dis.map(x=>`<div class="card" style="border-color:var(--ac)"><b>${ico(x.c)}${esc(x.c)}</b><div style="margin-top:6px">${pills(x)}</div></div>`).join('');
+    if(con.length)h+=`<h2>🤝 D’accord sur</h2>`+con.map(x=>`<div class="card" style="border-color:var(--gr)"><b>${ico(x.c)}${esc(x.c)}</b><div style="margin-top:6px">${pills(x)}</div></div>`).join('');
    }
-   h+=`<p class="s">Chacun explique pourquoi il a classé comme ça. Allez, débattez !</p>`;
-   if(isHost)h+=`<button class="p" onclick="nextRound()">Manche suivante</button>`;
+   h+=`<p class="s" style="margin-top:20px">Chacun explique pourquoi il a classé comme ça. Débattez bien !</p>`;
+   if(isHost)h+=`<button class="p" onclick="nextRound()">Manche suivante ➡️</button>`;
   }
  }
  h+=`<div class="err">${esc(msg)}</div>`;
  
- // Empêche de perdre le focus des champs de texte en cours de frappe
  const activeId = document.activeElement ? document.activeElement.id : '';
  if(activeId==='dr'||activeId==='mw-input'||activeId==='nm'||activeId==='cd') return;
  
