@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Priorities - Le Jeu de Classement & Débat</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Patrick+Hand&display=swap">
+<style>
+/* CSS Reset & Dark Mode Base System */
+:root {
+  --bg: #fff;
+  --fg: #111;
+  --mut: #555;
+  --card: #fff;
+  --bd: #111;
+  --ac: #3a8fdc;
+  --acf: #fff;
+  --pk: #e27bbd;
+  --gr: #4db08f;
+  --sh: #111;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15151b;
+    --fg: #f6f6f6;
+    --mut: #b5b5c0;
+    --card: #22222b;
+    --bd: #f6f6f6;
+    --ac: #4aa0ee;
+    --acf: #0d0d12;
+    --sh: #000;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #15151b;
+  --fg: #f6f6f6;
+  --mut: #b5b5c0;
+  --card: #22222b;
+  --bd: #f6f6f6;
+  --ac: #4aa0ee;
+  --acf: #0d0d12;
+  --sh: #000;
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 19px/1.4 'Patrick Hand', 'Comic Sans MS', cursive, sans-serif;
+  min-height: 100vh;
+}
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+h1, h2, .code, button.p, .chip b {
+  font-family: 'Lilita One', 'Arial Black', Impact, sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 1;
+  color: var(--ac);
+  -webkit-text-stroke: 2px var(--bd);
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 var(--sh);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+}
+
+h1::after {
+  content: ' ✳';
+  color: var(--fg);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+  font-size: 26px;
+  vertical-align: top;
+}
+
+h2 {
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin: 22px 0 8px;
+}
+
+p.s {
+  color: var(--mut);
+  margin: 0 0 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 2.5px solid var(--bd);
+  border-radius: 14px;
+  padding: 14px;
+  margin: 10px 0;
+  box-shadow: 4px 4px 0 var(--sh);
+}
+
+input, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px;
+  border: 2.5px solid var(--bd);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 19px;
+  margin: 4px 0 10px;
+}
+
+button {
+  font-family: inherit;
+  font-size: 19px;
+  cursor: pointer;
+  border: 2.5px solid var(--bd);
+  background: var(--card);
+  color: var(--fg);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-shadow: 3px 3px 0 var(--sh);
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--sh);
+}
+
+button.p {
+  background: var(--ac);
+  color: var(--acf);
+  border-color: var(--bd);
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 10px;
+}
+
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+.row > * {
+  flex: 1;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+  padding: 10px 14px;
+}
+
+.chip.on {
+  background: var(--pk);
+  color: #111;
+  font-weight: bold;
+}
+
+.chip b {
+  display: inline-grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  margin-right: 8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 2px solid var(--bd);
+  border-radius: 99px;
+  font-size: 17px;
+  margin: 2px 4px 2px 0;
+  color: var(--fg);
+  background: var(--card);
+}
+
+.code {
+  font: bold 22px ui-monospace, monospace;
+  letter-spacing: 4px;
+  color: var(--ac);
+  -webkit-text-stroke: 1px var(--bd);
+  paint-order: stroke fill;
+  text-shadow: 2px 2px 0 var(--sh);
+}
+
+.cols {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.col {
+  flex: 1;
+  min-width: 140px;
+}
+
+.col ol {
+  padding-left: 20px;
+  margin: 6px 0;
+}
+
+.err {
+  color: var(--ac);
+  min-height: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.rk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.rk b {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pk);
+  color: #111;
+  border: 2px solid var(--bd);
+  font-family: 'Lilita One', sans-serif;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+
+.rk span {
+  flex: 1;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.rk button {
+  flex: none;
+  padding: 8px 12px;
+}
+
+.ic {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--gr);
+  border: 2.5px solid var(--bd);
+  color: #111;
+  transform: rotate(-4deg);
+}
+
+.ic svg {
+  width: 26px;
+  height: 26px;
+  stroke-width: 2.4;
+  filter: url(#wob);
+}
+
+.rk:nth-of-type(even) .ic {
+  background: var(--pk);
+  transform: rotate(3deg);
+}
+
+li .ic {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border-width: 2px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+li .ic svg {
+  width: 16px;
+  height: 16px;
+}
+
+.card > b + .ic, .card > b {
+  vertical-align: middle;
+}
+
+.doo {
+  display: flex;
+  gap: 12px;
+  margin: 2px 0 14px;
+}
+
+.doo svg {
+  width: 36px;
+  height: 36px;
+  stroke-width: 2.2;
+  filter: url(#wob);
+  color: var(--ac);
+}
+
+.doo svg:nth-child(odd) { transform: rotate(-6deg); }
+.doo svg:nth-child(even) { transform: rotate(5deg); }
+.doo svg:nth-child(3n+2) { color: var(--pk); }
+.doo svg:nth-child(3n) { color: var(--gr); }
+
+.col:nth-child(3n+1) b { color: var(--ac); }
+.col:nth-child(3n+2) b { color: var(--pk); }
+.col:nth-child(3n) b { color: var(--gr); }
+
+.mini {
+  padding: 6px 12px;
+  font-size: 16px;
+}
+
+.rk.big {
+  padding: 14px;
+}
+
+.rk.big span {
+  font-size: 26px;
+}
+
+.rk.big b {
+  width: 42px;
+  height: 42px;
+  font-size: 22px;
+}
+
+label {
+  display: block;
+  margin-top: 4px;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Wobbly Effect Filter -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="wob" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5"/>
+  </filter>
+</svg>
+
+<!-- Application Container -->
+<main id="app"></main>
+
+<!-- External Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+<script>
+// Base Data Pool
+const DEF = [
+  "Une manette de jeu", "Une trottinette électrique", "Un café à emporter", "Un tote bag", "Un avocat bien mûr", 
+  "Mes nouvelles baskets", "Mon téléphone", "Mes écouteurs", "La télécommande", "Un chargeur de téléphone", 
+  "Un oreiller", "Une brosse à dents", "Du papier bulle", "Un parapluie", "Un canapé confortable", 
+  "Une paire de lunettes de soleil", "Un vieux pull préféré", "Des chaussettes chaudes", "Un tupperware sans couvercle", 
+  "Une machine à laver", "Un vélo", "Mes clés de voiture", "Un grille-pain", "Un cactus", "Une grasse matinée", 
+  "Un embouteillage", "Un lundi matin", "La batterie à 1 %", "Le wifi qui coupe", "Le dernier carré de chocolat", 
+  "Un apéro entre amis", "Un fou rire", "Un rendez-vous chez le dentiste", "Un coup de soleil", "Une soirée karaoké", 
+  "Avoir raison dans une dispute", "Un compliment sincère", "Une frite oubliée au fond du sac", 
+  "Le dernier épisode d’une série", "Un trajet en train debout", "Une soirée jeux de société", "Une douche chaude", 
+  "Un voisin bruyant", "Un ticket de concert", "Un barbecue entre voisins", "Un week-end à la mer", "Un café offert", 
+  "Un câlin de ma grand-mère", "Le premier jour d’école", "Passer son permis", "Un mariage", "La naissance d’un enfant", 
+  "Un déménagement", "Le premier amour", "Une rupture", "Le premier salaire", "Un diplôme", "Un premier appart", 
+  "Une retraite bien méritée", "Un enterrement de vie de célibataire", "Un voyage autour du monde", 
+  "Un anniversaire surprise", "Dire « je t’aime » en premier", "Un premier jour de boulot", "Le Nouvel An", 
+  "Mes 30 ans", "Les vacances d’été de mon enfance", "Une réunion de famille", "Un premier voyage seul", 
+  "Adopter un animal", "Un entretien d’embauche", "Une crémaillère", "La liberté", "La paix dans le monde", 
+  "Le changement climatique", "L’amitié", "La justice", "La vérité", "L’argent", "Le temps", "La famille", 
+  "La santé", "Le sens de la vie", "L’amour", "La réussite", "La liberté d’expression", "L’égalité", "La démocratie", 
+  "La solitude", "La curiosité", "Le courage", "La mémoire", "Le bonheur", "La confiance", "L’intelligence artificielle", 
+  "La nature", "Des chatons", "Un perroquet qui parle", "Un super-pouvoir au choix", "Un voyage dans le temps", 
+  "Le Père Noël", "Mon ex", "Une bagarre d’oreillers géante", "Une chaussette dépareillée", "Un hamster en costume", 
+  "Avoir le dernier mot", "Un caniche trop mignon", "Une baguette de pain", "Un canard en plastique", 
+  "Un robot qui fait le ménage", "Une sieste dans un hamac", "Un ours en peluche géant", "Des pâtes au beurre", 
+  "Une crêpe au Nutella", "Un cornet de frites", "Un dinosaure de compagnie", "Un mojito en terrasse", 
+  "Un gâteau au chocolat entier", "Un selfie avec une célébrité", "Une licorne gonflable", 
+  "Un pigeon qui vole mon sandwich", "Des chaussettes avec des sandales", "Un hoquet qui ne s’arrête pas", 
+  "Un message envoyé à la mauvaise personne", "Un fou rire en pleine réunion", "Un pyjama grenouillère", 
+  "Un lama au bureau", "Une piscine remplie de boules en plastique", "Un orteil cogné dans un meuble", 
+  "Un chat qui renverse mon verre", "Un GPS qui dit « faites demi-tour »", "Un moustique à 3 h du matin", 
+  "Du ketchup sur les pâtes", "Un bonnet à pompon", "Un duel de pierre-feuille-ciseaux", "Un hoverboard", 
+  "Un selfie raté avec le doigt devant l’objectif", "Une licorne qui parle", "Un déguisement de banane", 
+  "Un tapis roulant à bonbons", "L’éducation", "La santé mentale", "L’égalité entre les femmes et les hommes", 
+  "La sécurité de ma famille", "Un métier qui a du sens", "Le droit de vote", "La biodiversité", "Savoir pardonner", 
+  "Vieillir en bonne santé", "Un toit au-dessus de ma tête", "L’équilibre entre vie pro et vie perso", 
+  "La transmission aux générations futures", "Rester fidèle à mes valeurs", "Un système de santé pour tous", 
+  "La liberté de choisir sa vie", "La réussite de mes enfants", "La paix intérieure", "Savoir dire non", 
+  "Être aimé pour qui je suis", "Le respect"
+];
+
+// Icons Regex Mapping
+const IC = [
+  [/manette/i, 'gamepad-2'], [/trottinette|vélo|hoverboard/i, 'bike'], [/message/i, 'mail'], [/café/i, 'coffee'], 
+  [/tote|courses/i, 'shopping-bag'], [/avocat/i, 'apple'], [/baskets|orteil/i, 'footprints'], [/batterie/i, 'battery-low'], 
+  [/téléphone|chargeur|mot de passe/i, 'smartphone'], [/écouteurs/i, 'headphones'], [/télécommande|série|épisode/i, 'tv'], 
+  [/oreiller|sieste|grasse|sommeil|hamac|\blit\b/i, 'bed'], [/brosse|douche|bain/i, 'shower-head'], 
+  [/papier bulle|tupperware|boules/i, 'package'], [/parapluie/i, 'umbrella'], [/canapé|retraite/i, 'sofa'], 
+  [/lunettes/i, 'glasses'], [/pull|chaussettes|pyjama|bonnet|déguis|machine à laver|sandales/i, 'shirt'], 
+  [/clés|voiture|embouteillage|permis|GPS/i, 'car'], [/wifi/i, 'wifi'], [/famille|grand-mère|voisin/i, 'users'], 
+  [/enterrement|mariage|crémaillère|Nouvel An|artifice/i, 'party-popper'], [/apéro|mojito/i, 'martini'], 
+  [/jeux de société/i, 'dice-5'], [/perroquet|pigeon|liberté/i, 'bird'], [/dentiste/i, 'stethoscope'], 
+  [/intelligence artificielle|robot/i, 'bot'], [/mentale|mémoire|curiosité/i, 'brain'], [/santé|vieillir/i, 'activity'], 
+  [/fou rire|rire/i, 'laugh'], [/soleil|d’été/i, 'sun'], [/karaoké|musique|playlist|concert|ticket/i, 'music'], 
+  [/raison|dispute|dernier mot|bagarre/i, 'angry'], [/amour|aime\b|câlin|compliment|peluche/i, 'heart'], 
+  [/aimé|bonheur|paix intérieure/i, 'smile'], [/\bami|amitié/i, 'users'], [/\bchat|chaton/i, 'cat'], 
+  [/chien|caniche/i, 'dog'], [/animal|dinosaure|hamster|lama|licorne|canard/i, 'paw-print'], 
+  [/chocolat|gâteau|crêpe|anniversaire/i, 'cake'], [/sandwich|ketchup|pâtes|frite|cornet|grille-pain|baguette/i, 'utensils'], 
+  [/train/i, 'train-front'], [/barbecue/i, 'flame'], [/\bmer\b|week-end/i, 'waves'], 
+  [/école|diplôme|éducation/i, 'graduation-cap'], [/déménagement|appart|toit/i, 'house'], [/naissance|enfants/i, 'baby'], 
+  [/rupture|\bex\b/i, 'heart-crack'], [/dans le temps|^Le temps/i, 'hourglass'], [/paix/i, 'hand-heart'], 
+  [/voyage|montgolfière|Tokyo|monde/i, 'plane'], [/climat|nature|biodiversité/i, 'leaf'], [/justice|égalité|équilibre/i, 'scale'], 
+  [/vérité/i, 'search'], [/argent|compte en banque/i, 'coins'], [/lundi|réunion|boulot|métier|entretien|salaire/i, 'briefcase'], 
+  [/sens de la vie|idée/i, 'lightbulb'], [/réussite/i, 'trophy'], [/démocratie|vote/i, 'vote'], [/solitude/i, 'user'], 
+  [/courage|sécurité|valeurs/i, 'shield'], [/confiance|pardonner|respect/i, 'handshake'], [/super-pouvoir/i, 'zap'], 
+  [/Père Noël/i, 'gift'], [/selfie/i, 'camera'], [/moustique/i, 'bug'], [/pierre-feuille/i, 'scissors']
+];
+
+const FB = ['sparkles', 'star', 'smile', 'lightbulb', 'puzzle', 'rocket', 'palette', 'dice-5'];
+
+function icn(c) {
+  for (const [r, n] of IC) if (r.test(c)) return n;
+  let h = 0;
+  for (const ch of c) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return FB[h % FB.length];
+}
+
+const ico = c => `<div class="ic"><i data-lucide="${icn(c)}"></i></div>`;
+const DOO = () => `<div class="doo">${['gamepad-2', 'bike', 'coffee', 'shopping-bag', 'cat', 'smartphone'].map(n => `<i data-lucide="${n}"></i>`).join('')}</div>`;
+const ic = () => { if (window.lucide) try { lucide.createIcons(); } catch (e) {} };
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const $ = id => document.getElementById(id);
+const N = 5;
+
+// Application State Variables
+let pool = [...DEF], used = [], peer = null, myId = null, isHost = false, conns = {}, hostConn = null, S = null;
+let code = '', name = '', pick = null, pickRound = 0, msg = '', draft = '', busy = false;
+
+const rand4 = () => Array.from({ length: 4 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(Math.random() * 24)]).join('');
+
+function deal() {
+  let av = pool.filter(c => !used.includes(c));
+  if (av.length < N) {
+    av = [...pool];
+    used = [];
+  }
+  const c = av.sort(() => Math.random() - .5).slice(0, N);
+  used.push(...c);
+  return c;
+}
+
+function broadcast() {
+  for (const c of Object.values(conns)) {
+    if (c.open) c.send({ t: 'state', S });
+  }
+  render();
+}
+
+function hostHandle(id, m) {
+  const p = S.players[id] || (S.players[id] = { name: '', round: 0, ranking: [], done: false });
+  if (m.t === 'hello') p.name = String(m.name || '').slice(0, 20);
+  if (m.t === 'rank' && m.round === S.round && Array.isArray(m.ranking) && m.ranking.every(c => S.cards.includes(c))) {
+    p.round = S.round;
+    p.ranking = m.ranking.slice(0, N);
+    p.done = !!m.done;
+  }
+  broadcast();
+}
+
+function reset(m) {
+  msg = m || '';
+  try { if (peer) peer.destroy(); } catch (e) {}
+  peer = null; S = null; code = ''; isHost = false; conns = {}; hostConn = null; busy = false; pick = null;
+  render();
+}
+
+function create() {
+  if (busy) return;
+  name = $('nm').value.trim() || 'Hôte';
+  busy = true; msg = '';
+  render();
+  host(0);
+}
+
+function host(tries) {
+  code = rand4();
+  peer = new Peer('prio-' + code);
+  
+  peer.on('open', id => {
+    myId = id;
+    isHost = true;
+    busy = false;
+    S = { phase: 'lobby', round: 1, cards: [], players: { [id]: { name, round: 0, ranking: [], done: false } } };
+    render();
+  });
+  
+  peer.on('connection', c => {
+    c.on('open', () => {
+      conns[c.peer] = c;
+      c.send({ t: 'state', S });
+    });
+    c.on('data', m => hostHandle(c.peer, m));
+    c.on('close', () => {
+      delete conns[c.peer];
+      if (S) {
+        delete S.players[c.peer];
+        broadcast();
+      }
+    });
+  });
+  
+  peer.on('error', e => {
+    if (e.type === 'unavailable-id' && tries < 5) {
+      try { peer.destroy(); } catch (x) {}
+      return host(tries + 1);
+    }
+    reset('Erreur réseau (' + e.type + '). Réessaie.');
+  });
+}
+
+function join() {
+  if (busy) return;
+  name = $('nm').value.trim() || 'Joueur';
+  const c = $('cd').value.trim().toUpperCase();
+  if (!c) {
+    msg = 'Entre le code de la salle.';
+    return render();
+  }
+  code = c; busy = true; msg = '';
+  render();
+  
+  peer = new Peer();
+  peer.on('open', id => {
+    myId = id;
+    hostConn = peer.connect('prio-' + c, { reliable: true });
+    hostConn.on('open', () => hostConn.send({ t: 'hello', name }));
+    hostConn.on('data', m => {
+      if (m.t === 'state') {
+        S = m.S;
+        busy = false;
+        render();
+      }
+    });
+    hostConn.on('close', () => reset('L’hôte a quitté la salle.'));
+  });
+  
+  peer.on('error', e => reset(e.type === 'peer-unavailable' ? 'Salle introuvable.' : 'Erreur réseau (' + e.type + ').'));
+  setTimeout(() => {
+    if (busy && !S) reset('Connexion impossible. Vérifie le code.');
+  }, 12000);
+}
+
+function sendRank(done) {
+  const m = { t: 'rank', round: S.round, ranking: pick, done };
+  if (isHost) hostHandle(myId, m);
+  else hostConn.send(m);
+}
+
+function mv(i, d) {
+  const j = i + d;
+  if (j < 0 || j >= pick.length) return;
+  [pick[i], pick[j]] = [pick[j], pick[i]];
+  sendRank(false);
+  render();
+}
+
+function validate(v) {
+  sendRank(v);
+}
+
+function startRound() {
+  S.cards = deal();
+  S.phase = 'rank';
+  Object.values(S.players).forEach(p => {
+    p.ranking = [];
+    p.done = false;
+    p.round = S.round;
+  });
+  pick = null;
+  broadcast();
+}
+
+function start() {
+  const ex = draft.split('\n').map(s => s.trim()).filter(Boolean);
+  pool = [...new Set([...DEF, ...ex])];
+  used = [];
+  startRound();
+}
+
+function nextRound() {
+  S.round++;
+  startRound();
+}
+
+function reveal() {
+  S.phase = 'reveal';
+  broadcast();
+}
+
+function render() {
+  const a = $('app');
+  let h = `<h1>Priorities</h1>${DOO()}`;
+  
+  if (!S) {
+    h += busy ? `<p class="s">Connexion…</p>` : `<p class="s">Classe 5 concepts, puis débattez de vos choix.</p>
+    <div class="card">
+      <label>Ton pseudo</label>
+      <input id="nm" value="${esc(name)}" maxlength="20" placeholder="Ex: Alex">
+      <label>Code de la salle (pour rejoindre)</label>
+      <input id="cd" maxlength="4" placeholder="ABCD" style="text-transform:uppercase">
+      <div class="row">
+        <button class="p" onclick="join()">Rejoindre</button>
+        <button class="p" onclick="create()">Créer une salle</button>
+      </div>
+    </div>
+    <p class="s">L’hôte doit garder la page ouverte pendant la partie.</p>`;
+    h += `<div class="err">${esc(msg)}</div>`;
+    a.innerHTML = h;
+    ic();
+    return;
+  }
+  
+  const ps = Object.entries(S.players).map(([id, p]) => ({ id, ...p }));
+  h += `<p class="s">Salle <span class="code">${esc(code)}</span> · manche ${S.round}</p>`;
+  
+  if (S.phase === 'lobby') {
+    h += `<div class="card">
+      <b>Joueurs (${ps.length})</b>
+      <div style="margin-top:6px">${ps.map(p => `<span class="tag">${esc(p.name || '?')}</span>`).join('')}</div>
+    </div>`;
+    h += isHost ? `<h2>Prêt ?</h2>
+      <p class="s">5 concepts surprise seront tirés au hasard à chaque manche. Tu peux en ajouter des à toi, un par ligne (facultatif).</p>
+      <textarea id="dr" rows="4" oninput="draft=this.value" placeholder="Ex. : Le dernier biscuit">${esc(draft)}</textarea>
+      <button class="p" onclick="start()">Lancer la manche</button>` : 
+      `<p class="s">En attente que l’hôte lance la manche…</p>`;
+  } else {
+    if (!pick || pickRound !== S.round) {
+      pick = [...S.cards];
+      pickRound = S.round;
+    }
+    const me = S.players[myId] || { done: false };
+    
+    if (S.phase === 'rank') {
+      h += `<h2>Du préféré au moins préféré</h2><p class="s">Classe ces 5 concepts avec les flèches : le 1er est celui que tu préfères.</p>`;
+      h += pick.map((c, i) => `
+        <div class="card rk">
+          <b>${i + 1}</b>
+          ${ico(c)}
+          <span>${esc(c)}</span>
+          <button ${me.done || i === 0 ? 'disabled' : ''} onclick="mv(${i}, -1)">▲</button>
+          <button ${me.done || i === pick.length - 1 ? 'disabled' : ''} onclick="mv(${i}, 1)">▼</button>
+        </div>`).join('');
+        
+      h += me.done ? `<button class="p" onclick="validate(false)">Modifier mon classement</button>` : 
+                     `<button class="p" onclick="validate(true)">Valider mon classement</button>`;
+                     
+      const d = ps.filter(p => p.done && p.round === S.round).length;
+      h += `<div class="card">${d} / ${ps.length} ont validé
+        <div style="margin-top:6px">${ps.map(p => `<span class="tag">${p.done && p.round === S.round ? '✓ ' : '… '}${esc(p.name || '?')}</span>`).join('')}</div>
+      </div>`;
+      
+      if (isHost) h += `<button class="p" onclick="reveal()">Révéler les classements</button>`;
+    } else {
+      const R = ps.filter(p => p.round === S.round && p.ranking.length === N);
+      h += `<h2>Les classements</h2>`;
+      if (!R.length) h += `<p class="s">Personne n’a validé de classement.</p>`;
+      
+      h += `<div class="cols">${R.map(p => `
+        <div class="card col">
+          <b>${esc(p.name || '?')}</b>
+          <ol>${p.ranking.map(c => `<li>${ico(c)}${esc(c)}</li>`).join('')}</ol>
+        </div>`).join('')}</div>`;
+        
+      if (R.length > 1) {
+        const cs = S.cards.map(c => {
+          const r = R.map(p => p.ranking.indexOf(c) + 1);
+          return { c, r, s: Math.max(...r) - Math.min(...r) };
+        });
+        const pills = x => R.map((p, i) => `<span class="tag">${esc(p.name || '?')} : ${x.r[i]}</span>`).join('');
+        const dis = [...cs].sort((a, b) => b.s - a.s).slice(0, 3);
+        const con = cs.filter(x => x.s <= 1).sort((a, b) => a.s - b.s).slice(0, 2);
+        
+        h += `<h2>À débattre</h2>` + dis.map(x => `
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              ${ico(x.c)}<b>${esc(x.c)}</b>
+            </div>
+            <div>${pills(x)}</div>
+          </div>`).join('');
+          
+        if (con.length) {
+          h += `<h2>D’accord sur</h2>` + con.map(x => `
+            <div class="card">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                ${ico(x.c)}<b>${esc(x.c)}</b>
+              </div>
+              <div>${pills(x)}</div>
+            </div>`).join('');
+        }
+      }
+      
+      h += `<p class="s">Chacun explique pourquoi il a classé comme ça. Allez, débattez !</p>`;
+      if (isHost) h += `<button class="p" onclick="nextRound()">Manche suivante</button>`;
+    }
+  }
+  
+  h += `<div class="err">${esc(msg)}</div>`;
+  
+  // Guard active element (textarea) from losing focus on keystroke render
+  if (document.activeElement && document.activeElement.id === 'dr') return;
+  
+  a.innerHTML = h;
+  ic();
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>
