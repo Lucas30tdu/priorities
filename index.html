@@ -82,8 +82,12 @@ const rand4=()=>Array.from({length:4},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(
 function deal(forcedWord){
   let av=pool.filter(c=>!used.includes(c));
   if(av.length<N){av=[...pool];used=[]}
-  let c=av.sort(()=>Math.random()-.5).slice(0, N - (forcedWord ? 1 : 0));
-  if(forcedWord){c.push(forcedWord); c.sort(()=>Math.random()-.5);}
+  let count = N - (forcedWord ? 1 : 0);
+  let c = av.sort(()=>Math.random()-.5).slice(0, count);
+  if(forcedWord){
+    c.push(forcedWord);
+  }
+  c.sort(()=>Math.random()-.5);
   used.push(...c);
   return c;
 }
@@ -120,11 +124,11 @@ function mv(i,d){const j=i+d;if(j<0||j>=pick.length)return;[pick[i],pick[j]]=[pi
 function validate(v){sendRank(v)}
 
 function startRound(){
- const pIds=Object.keys(S.players);
+ const pIds=Object.keys(S.players).sort();
  const chosenId=pIds[(S.round - 1) % pIds.length];
  S.chosenBy=chosenId;
- const mw=S.mysteryWords[chosenId]||'';
- S.cards=deal(mw.trim()||null);
+ const mw=S.mysteryWords[chosenId]||'Concept mystère par défaut';
+ S.cards=deal(mw.trim());
  S.phase='rank';
  Object.values(S.players).forEach(p=>{p.ranking=[];p.done=false;p.round=S.round});
  pick=null;
@@ -139,8 +143,10 @@ function start(){
 }
 
 function submitMystery(){
- const w=$('mw-input').value.trim();
+ const inputEl=$('mw-input');
+ const w=inputEl?inputEl.value.trim():'';
  if(!w)return;
+ mysteryWord=w;
  const m={t:'mystery',round:S.round,playerId:myId,word:w};
  if(isHost)hostHandle(myId,m);
  else hostConn.send(m);
@@ -149,6 +155,7 @@ function submitMystery(){
 
 function nextRound(){S.round++;startRound()}
 function reveal(){S.phase='reveal';broadcast()}
+
 function render(){
  const a=$('app');let h=`<h1>Priorities</h1>${DOO()}`;
  if(!S){
@@ -158,8 +165,10 @@ function render(){
   <div class="row"><button class="p" onclick="join()">Rejoindre</button><button class="p" onclick="create()">Créer une salle</button></div></div>
   <p class="s">L’hôte doit garder la page ouverte pendant la partie.</p>`;
   h+=`<div class="err">${esc(msg)}</div>`;a.innerHTML=h;ic();return}
+ 
  const ps=Object.entries(S.players).map(([id,p])=>({id,...p}));
  h+=`<p class="s">Salle <span class="code">${esc(code)}</span> · manche ${S.round}</p>`;
+ 
  if(S.phase==='lobby'){
   h+=`<div class="card"><b>Joueurs (${ps.length})</b><div>${ps.map(p=>`<span class="tag">${esc(p.name||'?')}</span>`).join('')}</div></div>`;
   h+=isHost?`<h2>Prêt ?</h2><p class="s">À chaque tour, un joueur au hasard choisira un concept secret obligatoire ! Tu peux aussi ajouter des concepts de base ci-dessous (un par ligne, facultatif).</p><textarea id="dr" rows="3" oninput="draft=this.value" placeholder="Ex. : Un vieux dossier honteux">${esc(draft)}</textarea><button class="p" onclick="start()">Lancer la partie</button>`:`<p class="s">En attente que l’hôte lance la partie…</p>`;
@@ -202,7 +211,11 @@ function render(){
   }
  }
  h+=`<div class="err">${esc(msg)}</div>`;
- if(document.activeElement&&(document.activeElement.id==='dr'||document.activeElement.id==='mw-input'))return;
+ 
+ // Empêche de perdre le focus des champs de texte en cours de frappe
+ const activeId = document.activeElement ? document.activeElement.id : '';
+ if(activeId==='dr'||activeId==='mw-input'||activeId==='nm'||activeId==='cd') return;
+ 
  a.innerHTML=h;ic();
 }
 render();
